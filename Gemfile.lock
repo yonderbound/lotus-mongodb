@@ -1,0 +1,32 @@
+PATH
+  remote: .
+  specs:
+    lotus-mongodb (0.0.2)
+      mongo (~> 2.1.2)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    bson (3.2.6)
+    lotus-model (0.5.0)
+      lotus-utils (~> 0.5)
+      sequel (~> 4.9)
+    lotus-utils (0.5.2)
+    minitest (5.7.0)
+    mongo (2.1.2)
+      bson (~> 3.0)
+    rake (10.3.2)
+    sequel (4.27.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.6)
+  lotus-model (~> 0.5.0)
+  lotus-mongodb!
+  minitest (~> 5)
+  rake
+
+BUNDLED WITH
+   1.10.5

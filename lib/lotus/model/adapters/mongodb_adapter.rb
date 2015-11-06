@@ -160,7 +160,19 @@ module Lotus
         private
 
         def _find(collection, id)
+          if id.is_a?(Array)
+            _find_multuple(collection, id)
+          else
+            _find_single(collection, id)
+          end
+        end
+
+        def _find_single(collection, id)
           query(collection).find(_id: Mongodb::Collection.to_mongodb_id(id))
+        end
+
+        def _find_multuple(collection, ids)
+          query(collection).find(_id: { '$in': ids.map { |id| Mongodb::Collection.to_mongodb_id(id) } })
         end
 
         # Returns a collection from the given name.

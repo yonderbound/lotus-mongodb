@@ -13,6 +13,10 @@ module Lotus
         # @see http://sequel.jeremyevans.net/rdoc/files/doc/dataset_basics_rdoc.html
         # @see http://sequel.jeremyevans.net/rdoc/files/doc/dataset_filtering_rdoc.html
         class Collection < SimpleDelegator
+          def self.to_mongodb_id(id)
+            BSON::ObjectId.legal?(id) ? BSON::ObjectId(id) : id
+          end
+
           def initialize(dataset, mapped_collection)
             super(dataset)
             @mapped_collection = mapped_collection
@@ -95,7 +99,7 @@ module Lotus
           def _serialize(entity)
             serialized = @mapped_collection.serialize(entity)
             serialized.delete(:id)
-            serialized[:_id] = BSON::ObjectId(entity.id) unless entity.id.nil?
+            serialized[:_id] = Collection.to_mongodb_id(entity.id) unless entity.id.nil?
             serialized
           end
 

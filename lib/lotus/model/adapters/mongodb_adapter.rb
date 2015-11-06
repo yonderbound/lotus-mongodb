@@ -160,8 +160,7 @@ module Lotus
         private
 
         def _find(collection, id)
-          identity = :_id
-          query(collection).find(identity => BSON::ObjectId(id))
+          query(collection).find(_id: Mongodb::Collection.to_mongodb_id(id))
         end
 
         # Returns a collection from the given name.

@@ -161,7 +161,7 @@ module Lotus
 
         def _find(collection, id)
           if id.is_a?(Array)
-            _find_multuple(collection, id)
+            _find_multiple(collection, id)
           else
             _find_single(collection, id)
           end
@@ -171,7 +171,7 @@ module Lotus
           query(collection).find(_id: Mongodb::Collection.to_mongodb_id(id))
         end
 
-        def _find_multuple(collection, ids)
+        def _find_multiple(collection, ids)
           query(collection).find(_id: { '$in': ids.map { |id| Mongodb::Collection.to_mongodb_id(id) } })
         end
 

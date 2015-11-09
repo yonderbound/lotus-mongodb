@@ -33,7 +33,8 @@ module Lotus
           # @api private
           # @since 0.1.0
           def insert(entity)
-            id = BSON::ObjectId.new
+            id = Collection.to_mongodb_id(entity.id) unless entity.id.nil?
+            id ||= BSON::ObjectId.new
             serialized_entity = _serialize(entity).merge('_id': id)
             insert_one(serialized_entity)
             entity.id = id.to_s
